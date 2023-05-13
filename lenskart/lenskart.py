@@ -1,6 +1,7 @@
 # fetching data from lenskart
 
-from modules import *
+# import requests
+from bs4 import BeautifulSoup
 
 # lenskart_url = "https://www.lenskart.com/eyeglasses.html"
 

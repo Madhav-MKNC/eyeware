@@ -1,6 +1,9 @@
 # openai API I/O
 
-from modules import *
+from dotenv import load_dotenv
+from os import getenv
+
+import openai
 
 # loading api keys
 load_dotenv()
