@@ -53,16 +53,15 @@
 
 
 
-
-
-
+import os
 import cv2
 
 # Load the cascades
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
 
-def detect_eyewear(input):
+def filter(input, output):
+    print(f'[+] processing {input}')
     img = cv2.imread(input)
     # Convert the image to grayscale
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -70,8 +69,9 @@ def detect_eyewear(input):
     # Detect faces
     faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5)
 
-    results = []
+    # results = []
     # Iterate over each detected face
+    eyewear_detected = False
     for (x, y, w, h) in faces:
         # Draw a rectangle around the face
         cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), 2)
@@ -88,14 +88,23 @@ def detect_eyewear(input):
             eyewear_detected = True
             for (ex, ey, ew, eh) in eyes:
                 cv2.rectangle(roi_color, (ex, ey), (ex+ew, ey+eh), (0, 255, 0), 2)
-            cv2.putText(img, "Eyewear detected", (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2)
+            # cv2.putText(img, "Eyewear detected", (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2)
         else:
             eyewear_detected = False
-            cv2.putText(img, "Eyewear not detected", (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 0, 255), 2)
+            # cv2.putText(img, "Eyewear not detected", (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 0, 255), 2)
 
-    cv2.imwrite('output.jpg', img)
-    return eyewear_detected
+    if eyewear_detected:
+        print(f"[*] Saving {output}")
+        cv2.imwrite(output, img)
+    return eyewear_detected 
 
 
-x = detect_eyewear("image2.jpg")
-print(x)
+# filter the data and save it to filtered
+if not os.path.exists('filtered'):
+    os.makedirs('filtered')
+for i in os.listdir('data'):
+    print(f"data/{i}")
+    filter(f"data/{i}", f"filtered/{i}")
+    
+
+print(len(os.listdir('data')))
