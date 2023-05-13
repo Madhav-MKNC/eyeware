@@ -1,3 +1,5 @@
 from os import system as run
 
-run("git add .;git commit -m 'warspeed';git push origin main;")
+run('git add .')
+run('git commit -m "warspeed"')
+run("git push origin main")
