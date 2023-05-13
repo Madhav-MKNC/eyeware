@@ -1,12 +1,12 @@
 # fetching data from lenskart
 
-from . import modules
-# from modules import *
+from modules import *
 
 # lenskart_url = "https://www.lenskart.com/eyeglasses.html"
 
-def fetch_data(url, content_class, save_to_file = "eyewares-from-lenskart.txt"):
-    print(f"[+] fetching {url}...")
+def fetch_data(content_class, save_to_file = "eyewares-from-lenskart.txt"):
+    # print(f"[+] fetching {url}...")
+    print("[+] Scraping eyewares links")
 
     # page = requests.get(url)
     with open('lenskart.html', encoding='utf-8') as file:
@@ -19,5 +19,5 @@ def fetch_data(url, content_class, save_to_file = "eyewares-from-lenskart.txt"):
     with open(save_to_file, 'w', encoding='utf-8') as file:
         file.write("\n".join(eyewares))
 
-fetch_data(lenskart_url, content_class = "getGaData sliderImg")
+fetch_data(content_class = "getGaData sliderImg")
 
