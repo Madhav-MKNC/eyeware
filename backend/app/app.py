@@ -9,6 +9,13 @@ from PIL import Image
 
 app = Flask(__name__)
 
+# start web app
+def start(host="localhost", port=80, debug=True):
+    try:
+        app.run(host=host, port=port, debug=debug)
+    except Exception as err:
+        print("[error]", str(err))
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -29,5 +36,9 @@ def upload():
     # Send the processed image file to the user's browser
     return send_file(temp_file, mimetype='image/png')
 
-if __name__ == '__main__':
+
+
+
+if __name__ == "__main__":
+    # run on defaults (host:port)
     app.run(debug=True)
