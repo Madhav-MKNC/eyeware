@@ -74,7 +74,7 @@ def filter(input, output):
     eyewear_detected = False
     for (x, y, w, h) in faces:
         # Draw a rectangle around the face
-        cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), 2)
+        # cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 0), 2)
 
         # Crop the region of interest containing the face
         roi_gray = gray[y:y+h, x:x+w]
@@ -86,8 +86,8 @@ def filter(input, output):
         # Check if eyewear is detected
         if len(eyes) == 2:
             eyewear_detected = True
-            for (ex, ey, ew, eh) in eyes:
-                cv2.rectangle(roi_color, (ex, ey), (ex+ew, ey+eh), (0, 255, 0), 2)
+            # for (ex, ey, ew, eh) in eyes:
+                # cv2.rectangle(roi_color, (ex, ey), (ex+ew, ey+eh), (0, 255, 0), 2)
             # cv2.putText(img, "Eyewear detected", (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2)
         else:
             eyewear_detected = False
@@ -100,11 +100,11 @@ def filter(input, output):
 
 
 # filter the data and save it to filtered
-if not os.path.exists('filtered'):
-    os.makedirs('filtered')
+if not os.path.exists('new'):
+    os.makedirs('new')
 for i in os.listdir('data'):
     print(f"data/{i}")
-    filter(f"data/{i}", f"filtered/{i}")
+    filter(f"data/{i}", f"new/{i}")
     
 
 print(len(os.listdir('data')))

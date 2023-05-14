@@ -30,18 +30,18 @@ def download_image(url, fname):
 
 # download all the images
 def download():
-    # filter the data and save it to filtered
-    if not os.path.exists('filtered'):
-        os.makedirs('filtered')
+    # # filter the data and save it to new
+    if not os.path.exists('new'):
+        os.makedirs('new')
 
     links = list(set(readfile('images.txt').split('\n')[2000:]))
-    i = 1000
+    i = 274
     j = 0 
     while True:
         print(i, j)
         try:
             download_image(links[j], "temp.jpg")
-            if filter('temp.jpg', f"filtered/{i}"):
+            if filter('temp.jpg', f"new/{i}"):
                 i += 1
             j += 1 
         except Exception as e:
@@ -49,15 +49,15 @@ def download():
             break
 
     print('total=',len(links))
-    print('filtered=',len(os.listdir('filtered')))
+    print('new=',len(os.listdir('new')))
 
     # for i in os.listdir('data'):
     #     print(f"data/{i}")
-    #     filter(f"data/{i}", f"filtered/{i}")
+    #     filter(f"data/{i}", f"new/{i}")
 
 
 
-# fetch_data(content_class="rg_i Q4LuWd")
+fetch_data(content_class="rg_i Q4LuWd")
 
 download()
 
